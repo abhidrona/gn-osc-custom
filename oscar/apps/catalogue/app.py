@@ -17,15 +17,12 @@ class BaseCatalogueApplication(Application):
         urlpatterns = super(BaseCatalogueApplication, self).get_urls()
         urlpatterns += patterns('',
             url(r'^$', self.index_view.as_view(), name='index'),
-            url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/$',
+            url(r'^(?P<class_slug>[\w-]*)/(?P<product_slug>[\w-]*)/p(?P<pk>\d+)/$',
                 self.detail_view.as_view(), name='detail'),
-            url(r'^category/(?P<category_slug>[\w-]+(/[\w-]+)*)_(?P<pk>\d+)/$',
+            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/(?P<pk>\d+)/$',
                 self.category_view.as_view(), name='category'),
             url(r'^ranges/(?P<slug>[\w-]+)/$',
-                self.range_view.as_view(), name='range'),
-            # Legacy route for the category view
-            url(r'^(?P<category_slug>[\w-]+(/[\w-]+)*)/$',
-                self.category_view.as_view(), name='category'))
+                self.range_view.as_view(), name='range'),)
         return self.post_process_urls(urlpatterns)
 
 
